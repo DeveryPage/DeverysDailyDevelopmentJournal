@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    width: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+section {
+    display: flex;
+    padding:50px;
+}
+
+form {
+    display: flex;
+    width: 100%;
+}
