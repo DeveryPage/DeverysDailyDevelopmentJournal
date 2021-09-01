@@ -1,0 +1,26 @@
+{
+	"users": [
+        {
+            "userId": 1,
+            "name": "Devery",
+            "email": "thisemail@thisaddress",
+            "dateJoined": "01/31/2000"
+        }
+    ],
+    "journaylEntry":[
+        {
+            "userId": 1,
+            "dateOfEntry": "01/31/2000",
+            "conceptsCovered": "javascript loops",
+            "journalEntry": "we learned how this does this",
+            "moodId":
+        }
+    ],
+    "mood":[
+        {
+            "moodId": 15,
+            "moodStatus": "sad"
+
+        }
+    ]
+}
