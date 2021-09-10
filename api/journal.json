@@ -1,26 +1,62 @@
 {
-	"users": [
-        {
-            "userId": 1,
-            "name": "Devery",
-            "email": "thisemail@thisaddress",
-            "dateJoined": "01/31/2000"
-        }
-    ],
-    "journaylEntry":[
-        {
-            "userId": 1,
-            "dateOfEntry": "01/31/2000",
-            "conceptsCovered": "javascript loops",
-            "journalEntry": "we learned how this does this",
-            "moodId":
-        }
-    ],
-    "mood":[
-        {
-            "moodId": 15,
-            "moodStatus": "sad"
-
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "name": "Devery",
+      "email": "thisemail@thisaddress",
+      "dateJoined": "01/31/2000"
+    },
+    {
+      "name": "John",
+      "email": "thisemail@thisaddress",
+      "dateJoined": "01/31/2000",
+      "id": 2
+    },
+    {
+      "name": "kerry",
+      "email": "thisemail@thisaddress",
+      "dateJoined": "01/31/200",
+      "id": 3
+    }
+  ],
+  "journalEntries": [
+    {
+      "conceptsCovered": "asdfas",
+      "moodId": 3,
+      "journalEntry": "asdfas",
+      "userId": 1,
+      "dateOfEntry": 1631222506214,
+      "id": 1
+    },
+    {
+      "conceptsCovered": "asdfas",
+      "moodId": 2,
+      "journalEntry": "asdfas",
+      "userId": 1,
+      "dateOfEntry": 1631222511272,
+      "id": 2
+    }
+  ],
+  "moods": [
+    {
+      "id": 1,
+      "moodStatus": "sad"
+    },
+    {
+      "id": 2,
+      "moodStatus": "happy"
+    },
+    {
+      "id": 3,
+      "moodStatus": "stressed"
+    },
+    {
+      "id": 4,
+      "moodStatus": "accomplished"
+    },
+    {
+      "id": 5,
+      "moodStatus": "meh"
+    }
+  ]
 }
