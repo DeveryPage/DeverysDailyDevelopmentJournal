@@ -21,19 +21,11 @@
   ],
   "journalEntries": [
     {
-      "conceptsCovered": "asdfas",
-      "moodId": 3,
-      "journalEntry": "asdfas",
+      "conceptsCovered": "Delete Button functionality",
+      "moodId": 5,
+      "journalEntry": "We are learning how to make delete functions and edit functions for users to utilize.",
       "userId": 1,
-      "dateOfEntry": 1631222506214,
-      "id": 1
-    },
-    {
-      "conceptsCovered": "asdfas",
-      "moodId": 2,
-      "journalEntry": "asdfas",
-      "userId": 1,
-      "dateOfEntry": 1631222511272,
+      "dateOfEntry": 1632169931138,
       "id": 2
     }
   ],

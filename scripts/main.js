@@ -1,5 +1,5 @@
 import { getLoggedInUser, useEntryCollection, createEntry } from "./dataManager.js";
-import { getJournalEntries, getUsers } from "./dataManager.js";
+import { getJournalEntries, getUsers, deleteEntry } from "./dataManager.js";
 import { entryList } from "./journalList.js";
 import { Footer } from "./footer.js";
 import { journalEntry } from "./journalEntry.js";
@@ -79,7 +79,17 @@ const showFilteredEntries = (year) => {
   entryElement.innerHTML = entryList(filteredData);
 }
 
-
+// DELETE
+applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id.startsWith("delete")) {
+    const entryId = event.target.id.split("--")[1];
+    deleteEntry(entryId)
+      .then(response => {
+        showEntryList();
+      })
+  }
+})
 
 
 

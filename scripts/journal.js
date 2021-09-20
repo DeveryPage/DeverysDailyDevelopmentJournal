@@ -8,6 +8,7 @@ export const entry = (entryObject) => {
             <h3 class="entry_date">${entryObject.dateOfEntry}</h3>
             <p class="user_name">${entryObject.journalEntry}</p>
             <div><button id="edit--${entryObject.id}">Edit</button></div>
+            <button id="delete--${entryObject.id}">Delete</button>
             
       </section>
     `
