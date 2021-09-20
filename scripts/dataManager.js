@@ -30,7 +30,7 @@ export const useEntryCollection = () => {
 
 export const getJournalEntries = () => {
 
-    return fetch("http://localhost:8088/journalEntries?_expand=mood&_expand=user")
+    return fetch("http://localhost:8089/journalEntries?_expand=mood&_expand=user")
     .then(response => response.json())
     .then(parsedResponse => {
         entryCollection = parsedResponse
@@ -40,7 +40,7 @@ export const getJournalEntries = () => {
 
 
 export const createEntry = entryObject => {
-    return fetch("http://localhost:8088/journalEntries", {
+    return fetch("http://localhost:8089/journalEntries", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -50,3 +50,16 @@ export const createEntry = entryObject => {
         .then(response => response.json())
 }
 
+
+// DELETE
+export const deleteEntry = entryId => {
+    return fetch(`http://localhost:8089/journalEntries/${entryId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+  
+    })
+        .then(response => response.json())
+        .then(getJournalEntries)
+  }
