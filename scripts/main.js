@@ -1,8 +1,10 @@
-import { getLoggedInUser, useEntryCollection, createEntry } from "./dataManager.js";
-import { getJournalEntries, getUsers, deleteEntry } from "./dataManager.js";
+import {useEntryCollection, createEntry } from "./dataManager.js";
+import { getJournalEntries, getUsers, deleteEntry, getLoggedInUser, loginUser, logoutUser, setLoggedInUser } from "./dataManager.js";
 import { entryList } from "./journalList.js";
 import { Footer } from "./footer.js";
 import { journalEntry } from "./journalEntry.js";
+import { LoginForm } from "./LoginForm.js";
+import { RegisterForm } from "./RegisterForm.js";
 
 
 
@@ -19,6 +21,17 @@ const showJournalEntry = () => {
   const entryElement = document.querySelector(".entryForm");
   entryElement.innerHTML = journalEntry();
 }
+
+
+const showLoginRegister = () => {
+  const entryElement = document.querySelector(".entryForm");
+  //template strings can be used here too
+  entryElement.innerHTML = `${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
+  //make sure the post list is cleared out too
+const postElement = document.querySelector(".journalList");
+postElement.innerHTML = "";
+}
+
 
 applicationElement.addEventListener("click", event => {
   if (event.target.id === "journalDate") {
@@ -93,6 +106,29 @@ applicationElement.addEventListener("click", event => {
 
 
 
+applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id === "login__submit") {
+    //collect all the details into an object
+    const userObject = {
+      name: document.querySelector("input[name='name']").value,
+      email: document.querySelector("input[name='email']").value
+    }
+    loginUser(userObject)
+    .then(dbUserObj => {
+      if(dbUserObj){
+        sessionStorage.setItem("user", JSON.stringify(dbUserObj));
+        startJournal();
+      }else {
+        //got a false value - no user
+        const entryElement = document.querySelector(".entryForm");
+        entryElement.innerHTML = `</br> <p class="center">That user does not exist. Please try again or register for your free account.</p> ${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
+      }
+    })
+  }
+})
+
+
 
 applicationElement.addEventListener("click", event => {
   if (event.target.id === "newEntry__cancel") {
@@ -124,8 +160,24 @@ applicationElement.addEventListener("click", event => {
 })
 
 
+applicationElement.addEventListener("click", event => {
+  if (event.target.id === "logout") {
+    logoutUser();
+    console.log(getLoggedInUser());
+    sessionStorage.clear();
+    checkForUser();
+  }
+})
 
 
+const checkForUser = () => {
+  if (sessionStorage.getItem("user")){
+    setLoggedInUser(JSON.parse(sessionStorage.getItem("user")));
+    startJournal();
+  }else {
+     showLoginRegister();
+  }
+}
 
 
 
@@ -139,4 +191,4 @@ const startJournal = () => {
   Footer();
 }
 
-startJournal();
+checkForUser();

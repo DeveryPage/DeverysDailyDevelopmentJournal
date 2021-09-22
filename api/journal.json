@@ -27,6 +27,14 @@
       "userId": 1,
       "dateOfEntry": 1632169931138,
       "id": 2
+    },
+    {
+      "conceptsCovered": "09/21 worked on login and registration stuff",
+      "moodId": 5,
+      "journalEntry": "Created login and registration forms for giffy gram just transfered that to journal as of 09/22",
+      "userId": 1,
+      "dateOfEntry": 1632329147943,
+      "id": 3
     }
   ],
   "moods": [
