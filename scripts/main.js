@@ -1,10 +1,12 @@
-import {useEntryCollection, createEntry } from "./dataManager.js";
-import { getJournalEntries, getUsers, deleteEntry, getLoggedInUser, loginUser, logoutUser, setLoggedInUser } from "./dataManager.js";
+import {useEntryCollection, createEntry, updateEntry, getJournalEntries, getUsers, deleteEntry,
+  getLoggedInUser, loginUser, logoutUser, setLoggedInUser, getSingleEntry, registerUser} from "./dataManager.js";
+
 import { entryList } from "./journalList.js";
 import { Footer } from "./footer.js";
 import { journalEntry } from "./journalEntry.js";
 import { LoginForm } from "./LoginForm.js";
 import { RegisterForm } from "./RegisterForm.js";
+import { PostEdit } from "./PostEdit.js";
 
 
 
@@ -28,8 +30,14 @@ const showLoginRegister = () => {
   //template strings can be used here too
   entryElement.innerHTML = `${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
   //make sure the post list is cleared out too
-const postElement = document.querySelector(".journalList");
+const postElement = document.querySelector(".entryList");
 postElement.innerHTML = "";
+}
+
+// editshown
+const showEdit = (entryObject) => {
+  const entryElement = document.querySelector(".entryForm");
+  entryElement.innerHTML = PostEdit(entryObject);
 }
 
 
@@ -105,6 +113,18 @@ applicationElement.addEventListener("click", event => {
 })
 
 
+applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id.startsWith("edit")) {
+    const entryId = event.target.id.split("__")[1];
+    getSingleEntry(entryId)
+      .then(response => {
+        showEdit(response);
+      })
+  }
+})
+
+
 
 applicationElement.addEventListener("click", event => {
   event.preventDefault();
@@ -131,6 +151,24 @@ applicationElement.addEventListener("click", event => {
 
 
 applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id === "register__submit") {
+    //collect all the details into an object
+    const userObject = {
+      name: document.querySelector("input[name='registerName']").value,
+      email: document.querySelector("input[name='registerEmail']").value
+    }
+    registerUser(userObject)
+    .then(dbUserObj => {
+      sessionStorage.setItem("user", JSON.stringify(dbUserObj));
+      startJournal();
+    })
+  }
+})
+
+
+
+applicationElement.addEventListener("click", event => {
   if (event.target.id === "newEntry__cancel") {
       //clear the input fields
   }
@@ -145,7 +183,6 @@ applicationElement.addEventListener("click", event => {
     const entry = document.querySelector("textarea[name='journalEntry']").value
     //we have not created a user yet - for now, we will hard code `1`.
     //we can add the current time as well
-    console.log(mood)
     const entryObject = {
         conceptsCovered: concepts,
         moodId: parseInt(mood),
@@ -158,6 +195,34 @@ applicationElement.addEventListener("click", event => {
       createEntry(entryObject).then(response => showEntryList())
   }
 })
+
+
+applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id.startsWith("updateEntry")) {
+    const entryId = event.target.id.split("__")[1];
+    //collect all the details into an object
+    const concepts = document.querySelector("input[name='coveredConcepts']").value
+    const mood = document.querySelector("select[name='moodDrop']").value
+    const entry = document.querySelector("textarea[name='journalEntry']").value
+    const dateOfEntry = document.querySelector("input[name='dateOfEntry']").value
+    
+    const entryObject = {
+      conceptsCovered: concepts,
+      moodId: parseInt(mood),
+      journalEntry: entry,
+      userId: getLoggedInUser().id,
+      dateOfEntry: parseInt(dateOfEntry),
+      id: parseInt(entryId)
+    }
+    
+    updateEntry(entryObject)
+      .then(response => {
+        showEntryList();
+      })
+  }
+})
+
 
 
 applicationElement.addEventListener("click", event => {

@@ -30,8 +30,11 @@ export const useEntryCollection = () => {
     return [...entryCollection];
 }
 
-export const getJournalEntries = () => {
 
+
+
+export const getJournalEntries = () => {
+    const userId = getLoggedInUser().id
     return fetch("http://localhost:8088/journalEntries?_expand=mood&_expand=user")
     .then(response => response.json())
     .then(parsedResponse => {
@@ -39,6 +42,11 @@ export const getJournalEntries = () => {
         return parsedResponse;
     })
 }
+
+export const getSingleEntry = entryId => {
+    return fetch(`http://localhost:8088/journalEntries/${entryId}`)
+      .then(response => response.json())
+  }
 
 
 export const loginUser = (userObj) => {
@@ -54,6 +62,21 @@ export const loginUser = (userObj) => {
         //no user
         return false;
       }
+    })
+  }
+
+  export const registerUser = (userObj) => {
+    return fetch(`http://localhost:8088/users`, {
+      method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userObj)
+    })
+    .then(response => response.json())
+    .then(parsedUser => {
+      setLoggedInUser(parsedUser);
+      return getLoggedInUser();
     })
   }
 
@@ -81,4 +104,19 @@ export const deleteEntry = entryId => {
     })
         .then(response => response.json())
         .then(getJournalEntries)
+  }
+
+
+  // updating post
+export const updateEntry = entryObj => {
+    return fetch(`http://localhost:8088/journalEntries/${entryObj.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(entryObj)
+  
+    })
+        .then(response => response.json())
+        
   }
