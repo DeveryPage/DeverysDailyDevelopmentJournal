@@ -17,6 +17,21 @@
       "email": "thisemail@thisaddress",
       "dateJoined": "01/31/200",
       "id": 3
+    },
+    {
+      "name": "donald",
+      "email": "donald.com",
+      "id": 4
+    },
+    {
+      "name": "donald",
+      "email": "donald.com",
+      "id": 5
+    },
+    {
+      "name": "johnjohn",
+      "email": ".comcom",
+      "id": 6
     }
   ],
   "journalEntries": [
@@ -35,6 +50,14 @@
       "userId": 1,
       "dateOfEntry": 1632329147943,
       "id": 3
+    },
+    {
+      "conceptsCovered": "ssgfds",
+      "moodId": 3,
+      "journalEntry": "sdfsdfg",
+      "userId": 1,
+      "dateOfEntry": 1632338852798,
+      "id": 4
     }
   ],
   "moods": [
